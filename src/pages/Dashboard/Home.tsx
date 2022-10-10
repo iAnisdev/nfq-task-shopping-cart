@@ -5,6 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import { Container } from '@mui/material'
+import Products from '../../features/Products/Products';
 
 function Home() {
   return (
@@ -26,6 +27,8 @@ function Home() {
           <FilterAltIcon />
         </IconButton>
       </Paper>
+      <br />
+      <Products />
     </Container>
   )
 }

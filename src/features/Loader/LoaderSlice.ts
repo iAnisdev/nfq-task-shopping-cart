@@ -17,6 +17,17 @@ const loaderSlice = createSlice({
         hide: (state) => {
             state.open = true
         }
+    },
+    extraReducers: {
+        'product/load/pending': (state) => {
+            state.open = true
+        },
+        'product/load/fulfilled': (state) => {
+            state.open = false
+        },
+        'product/load/rejected': (state) => {
+            state.open = false
+        }
     }
 })
 
