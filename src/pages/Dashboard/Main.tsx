@@ -5,7 +5,7 @@ import MainAppBar from '../../features/Appbar/Appbar'
 function Main() {
     return (
         <>
-        <MainAppBar />
+            <MainAppBar />
             <Outlet />
         </>
     )
