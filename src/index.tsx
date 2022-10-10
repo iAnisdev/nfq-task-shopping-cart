@@ -3,10 +3,9 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { store } from './app/store';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
-
+import App from './App';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -16,14 +15,15 @@ import LoaderBackdrop from './features/Loader/Loader';
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
+
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-        <LoaderBackdrop />
-      </BrowserRouter>
-    </Provider>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+          <LoaderBackdrop />
+        </BrowserRouter>
+      </Provider>
   </React.StrictMode>
 );
 
