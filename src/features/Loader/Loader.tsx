@@ -6,7 +6,7 @@ import { RootState } from '../../app/store';
 import { loaderActions } from './LoaderSlice';
 
 export default function LoaderBackdrop(): React.ReactElement {
-    
+
     const loading = useSelector((state: RootState) => state.loader.open)
     const disptach = useDispatch()
 
