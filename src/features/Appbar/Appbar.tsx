@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import { MenuOutlined, LogoutOutlined, ShoppingCart } from '@mui/icons-material';
+import { MenuOutlined, LogoutOutlined, LightMode, DarkMode } from '@mui/icons-material';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
@@ -14,7 +14,9 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
 import { Badge } from '@mui/material';
 import { AuthActions } from '../Auth/AuthSlice';
-import { useDispatch } from 'react-redux';
+import { AppbarActions } from './AppbarSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../app/store';
 
 const pages = [{
   label: 'Home',
@@ -22,6 +24,7 @@ const pages = [{
 }];
 
 const MainAppBar = () => {
+  const currentTheme = useSelector((state: RootState) => state.app.theme)
   const dispatch = useDispatch()
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
@@ -32,6 +35,10 @@ const MainAppBar = () => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+  const SetTheme = (): void => {
+    dispatch(AppbarActions.toggleTheme())
+  }
 
   const logout = () => {
     dispatch(AuthActions.logout())
@@ -130,10 +137,8 @@ const MainAppBar = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={0} color="error">
-                <ShoppingCart />
-              </Badge>
+            <IconButton size="large" color="inherit" onClick={SetTheme} >
+              {currentTheme === 'dark' ? <LightMode /> : <DarkMode />}
             </IconButton>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Tooltip title="logout">

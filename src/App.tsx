@@ -6,10 +6,22 @@ import Cart from "./pages/Dashboard/Cart";
 import Home from "./pages/Dashboard/Home";
 import PrivateRoutesProtector from "./router/PrivateRoutesProtector";
 import Main from "./pages/Dashboard/Main";
+import { createTheme, ThemeProvider } from "@mui/material";
+import { useSelector } from "react-redux";
+import { RootState } from "./app/store";
 
 function App() {
+
+  const currentTheme = useSelector((state: RootState) => state.app.theme)
+
+  const theme = createTheme({
+    palette: {
+      mode: currentTheme
+    }
+  })
+  
   return (
-    <div className="App">
+    <ThemeProvider theme={theme}>
       <Routes>
         <Route path="/" element={<PrivateRoutesProtector requiredAuth={true} />}>
           <Route path="" element={<Main />}>
@@ -27,7 +39,7 @@ function App() {
           <Route path="" element={<Forgot />} />
         </Route>
       </Routes>
-    </div>
+    </ThemeProvider>
   );
 }
 
