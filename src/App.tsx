@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Cart from "./pages/Cart";
+import Forgot from "./pages/Forgot";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -17,7 +18,10 @@ function App() {
           <Route path="" element={<Login />} />
         </Route>
         <Route path="/signup" element={<PrivateRoutesProtector requiredAuth={false} />}>
-          <Route path="/signup" element={<Signup />} />
+          <Route path="" element={<Signup />} />
+        </Route>
+        <Route path="/forgot" element={<PrivateRoutesProtector requiredAuth={false} />}>
+          <Route path="" element={<Forgot />} />
         </Route>
       </Routes>
     </div>
