@@ -13,11 +13,15 @@ import { useAppSelector } from '../../app/hooks';
 
 export default function Forgot() {
     const theme = useAppSelector(state => state.app.theme)
+
+  const [email, setEmail] = React.useState(() => {
+    return ''
+  })
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
         console.log({
-            email: data.get('email')
+            email
         });
     };
 
@@ -49,6 +53,8 @@ export default function Forgot() {
                             name="email"
                             autoComplete="email"
                             autoFocus
+                            value={email}
+                            onChange={e => setEmail(e.target.value)}
                         />
                         <Button
                             type="submit"

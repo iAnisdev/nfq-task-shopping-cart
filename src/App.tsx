@@ -27,8 +27,6 @@ function App() {
       <Routes>
         <Route path="/" element={<PrivateRoutesProtector requiredAuth={true} />}>
           <Route path="" element={<Main />}>
-            <Route path="" index element={<Home />} />
-            <Route path="cart" element={<Cart />} />
             <Route path="checkout" element={<Checkout />} />
           </Route>
         </Route>
@@ -38,6 +36,10 @@ function App() {
             <Route path="login" index element={<Login />} />
             <Route path="signup" element={<Signup />} />
             <Route path="forgot" element={<Forgot />} />
+          </Route>
+          <Route path="" element={<Main />}>
+            <Route path="" index element={<Home />} />
+            <Route path="cart" element={<Cart />} />
           </Route>
         </Route>
 

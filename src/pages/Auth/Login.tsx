@@ -3,25 +3,27 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Link as RouterLink } from 'react-router-dom';
-import { useAppSelector } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { LoginRequest } from '../../features/Auth/AuthSlice';
 
 export default function Login() {
   const theme = useAppSelector(state => state.app.theme)
+  const [username, setUsername] = React.useState(() => {
+    return 'johnd'
+  })
+  const [password, setPassword] = React.useState(() => {
+    return 'm38rmF$'
+  })
+  const disptach = useAppDispatch()
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    disptach(LoginRequest({ username, password }))
   };
 
   return (
@@ -47,11 +49,13 @@ export default function Login() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
+              value={username}
               autoFocus
+              onChange={e => setUsername(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -61,11 +65,9 @@ export default function Login() {
               label="Password"
               type="password"
               id="password"
+              value={password}
               autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              onChange={e => setPassword(e.target.value)}
             />
             <Button
               type="submit"
@@ -78,14 +80,14 @@ export default function Login() {
             <Grid container>
               <Grid item xs>
                 <RouterLink to="/forgot">
-                  <Typography variant="body2"  color={theme === 'light'  ? 'blue' : 'white'}> 
+                  <Typography variant="body2" color={theme === 'light' ? 'blue' : 'white'}>
                     Forgot password?
                   </Typography>
                 </RouterLink>
               </Grid>
               <Grid item>
                 <RouterLink to='/signup'>
-                  <Typography variant="body2"  color={theme === 'light'  ? 'blue' : 'white'}>
+                  <Typography variant="body2" color={theme === 'light' ? 'blue' : 'white'}>
                     {"Don't have an account? Sign Up"}
                   </Typography>
                 </RouterLink>

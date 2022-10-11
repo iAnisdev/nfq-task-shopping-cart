@@ -13,17 +13,30 @@ import { useAppSelector } from '../../app/hooks';
 
 export default function SignUp() {
   const theme = useAppSelector(state => state.app.theme)
+
+  const [user, setUser] = React.useState(() => {
+    return {
+      email: '',
+      username: '',
+      password: '',
+      cpassword: '',
+      firstname: '',
+      lastname: ''
+    }
+  })
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value
+    const name = event.target.name;
+    setUser({
+      ...user,
+      [name]: value
+    })
+  }
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      firstName: data.get('firstName'),
-      email: data.get('email'),
-      lastName: data.get('lastName'),
-      password: data.get('password'),
-      cpassword: data.get('cpassword')
-    });
-  };
+  }
 
   return (
     <>
@@ -31,7 +44,7 @@ export default function SignUp() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 4,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -48,11 +61,13 @@ export default function SignUp() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="firstname"
                   required
                   fullWidth
                   id="firstName"
                   label="First Name"
+                  value={user.firstname}
+                  onChange={handleChange}
                   autoFocus
                 />
               </Grid>
@@ -60,10 +75,24 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  id="lastName"
+                  id="lastname"
                   label="Last Name"
-                  name="lastName"
+                  name="lastname"
                   autoComplete="family-name"
+                  value={user.lastname}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="username"
+                  label="Username"
+                  name="username"
+                  autoComplete="username"
+                  value={user.username}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -73,7 +102,10 @@ export default function SignUp() {
                   id="email"
                   label="Email Address"
                   name="email"
+                  type="email"
                   autoComplete="email"
+                  value={user.email}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -85,6 +117,8 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  value={user.password}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -96,6 +130,8 @@ export default function SignUp() {
                   type="password"
                   id="cpassword"
                   autoComplete="repeat-password"
+                  value={user.cpassword}
+                  onChange={handleChange}
                 />
               </Grid>
             </Grid>
@@ -110,7 +146,7 @@ export default function SignUp() {
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <RouterLink to='/login'>
-                  <Typography variant="body2" color={theme === 'light'  ? 'blue' : 'white'}>
+                  <Typography variant="body2" color={theme === 'light' ? 'blue' : 'white'}>
                     Already have an account? Sign in
                   </Typography>
                 </RouterLink>
