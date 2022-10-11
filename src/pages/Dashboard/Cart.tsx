@@ -11,7 +11,7 @@ function Cart() {
     return a + (b.price * b.quanitity)
   }, 0)
 
-  function toCheckout(): void{
+  const toCheckout = (): void =>{
     navigate('/checkout')
   }
 

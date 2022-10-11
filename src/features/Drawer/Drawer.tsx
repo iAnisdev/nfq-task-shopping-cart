@@ -7,12 +7,11 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
-import { Button, ButtonGroup, Grid, IconButton, Rating } from '@mui/material';
+import { Button, Grid, IconButton, Rating } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { DrawerActions } from './DrawerSlice';
 import { ProductAction } from '../Products/ProductSlice';
 import { CartActions } from '../Cart/CartSlice';
-
 import { CartItemInterface } from '../../Types/product';
 
 export default function ItemDrawer() {
@@ -20,21 +19,21 @@ export default function ItemDrawer() {
     const product: CartItemInterface = useAppSelector((state) => state.product.targetItem)
     const disptach = useAppDispatch()
 
-    function closeDrawer(): void {
+    const closeDrawer = (): void => {
         disptach(DrawerActions.hide())
     };
 
-    function increment(): void {
+    const increment = (): void => {
         disptach(ProductAction.setTargetItem({ ...product, quanitity: product.quanitity + 1 }))
     }
 
-    function decrement(): void {
+    const decrement = (): void => {
         if (product.quanitity > 0) {
             disptach(ProductAction.setTargetItem({ ...product, quanitity: product.quanitity - 1 }))
         }
     }
 
-    function addToCart() {
+    const addToCart = (): void => {
         if (product.quanitity > 0) {
             disptach(CartActions.addToCart(product))
         }

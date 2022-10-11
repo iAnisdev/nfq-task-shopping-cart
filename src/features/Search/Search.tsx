@@ -11,7 +11,7 @@ import { SearchActions } from './SearchSlice';
 function Search() {
     const search = useAppSelector((state) => state.search.search)
     const dispatch = useAppDispatch()
-    function updateSearch(value: string): void {
+    const updateSearch = (value: string): void => {
         dispatch(SearchActions.setSeach(value))
     }
     return (

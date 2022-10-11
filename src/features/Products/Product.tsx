@@ -18,7 +18,7 @@ interface propsInterface {
 
 const ProductCard: React.FC<propsInterface> = function ({ product }: propsInterface): React.ReactElement {
   const disptach = useAppDispatch()
-  function addToCart(){
+  const addToCart = (): void => {
     disptach(ProductAction.setTargetItem(product))
     disptach(DrawerActions.show())
   }
@@ -33,9 +33,9 @@ const ProductCard: React.FC<propsInterface> = function ({ product }: propsInterf
         image={product.image}
         alt={`${product.title}_img`}
         style={{
-          width:' 100%',
+          width: ' 100%',
           height: '350px',
-          backgroundRepeat:' no-repeat',
+          backgroundRepeat: ' no-repeat',
           objectFit: 'contain'
         }}
       />

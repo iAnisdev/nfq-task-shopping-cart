@@ -1,7 +1,6 @@
 import { FC, ReactElement, useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import { Navigate, Outlet } from 'react-router-dom'
-import { RootState } from '../app/store'
+import { useAppSelector } from '../app/hooks'
 import { loaderActions } from '../features/Loader/LoaderSlice'
 
 interface ProtectorProp {
@@ -9,7 +8,7 @@ interface ProtectorProp {
 }
 
 const PrivateRoutesProtector: FC<ProtectorProp> = (props: ProtectorProp): ReactElement => {
-    let isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn)
+    let isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
 
     useEffect(() => {
         loaderActions.show()    

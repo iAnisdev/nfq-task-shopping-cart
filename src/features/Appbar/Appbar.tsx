@@ -34,11 +34,11 @@ const MainAppBar = () => {
     return a + b.quanitity
   } , 0)
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) :void  => {
     setAnchorElNav(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = () :void  => {
     setAnchorElNav(null);
   };
 
@@ -46,12 +46,12 @@ const MainAppBar = () => {
     dispatch(AppbarActions.toggleTheme())
   }
 
-  const logout = () => {
+  const logout = ():void  => {
     dispatch(AuthActions.logout())
   }
 
 
-  const viewCart = () => {
+  const viewCart = ():void  => {
     navigate('/cart')
   }
 

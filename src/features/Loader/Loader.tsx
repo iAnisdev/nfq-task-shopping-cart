@@ -1,16 +1,15 @@
 import * as React from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../app/store';
 import { loaderActions } from './LoaderSlice';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
 export default function LoaderBackdrop(): React.ReactElement {
 
-    const loading = useSelector((state: RootState) => state.loader.open)
-    const disptach = useDispatch()
+    const loading = useAppSelector((state ) => state.loader.open)
+    const disptach = useAppDispatch()
 
-    function handleClose() {
+    const handleClose = () :void => {
         disptach(loaderActions.hide())
     }
 
