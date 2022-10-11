@@ -3,13 +3,15 @@ import AuthReducer from '../features/Auth/AuthSlice'
 import LoaderReducer from '../features/Loader/LoaderSlice';
 import AppbarReducer from '../features/Appbar/AppbarSlice';
 import ProductReducer from '../features/Products/ProductSlice';
+import SearchReducer from '../features/Search/SearchSlice';
 
 export const store = configureStore({
     reducer: {
         auth: AuthReducer,
         loader: LoaderReducer,
         app: AppbarReducer,
-        product: ProductReducer
+        product: ProductReducer,
+        search: SearchReducer
     },
 });
 

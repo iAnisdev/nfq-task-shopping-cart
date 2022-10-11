@@ -6,7 +6,8 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import { ProductInterface } from '../../Types/product';
-import { Chip, Grid, Rating } from '@mui/material';
+import { Grid, IconButton, Rating } from '@mui/material';
+import { AddShoppingCartOutlined } from '@mui/icons-material';
 
 interface propsInterface {
   product: ProductInterface
@@ -17,6 +18,7 @@ const ProductCard: React.FC<propsInterface> = function ({ product }: propsInterf
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         title={product.title}
+        subheader={`$${product.price}`}
       />
       <CardMedia
         component="img"
@@ -37,7 +39,9 @@ const ProductCard: React.FC<propsInterface> = function ({ product }: propsInterf
             <Rating name="product-rating" defaultValue={product.rating.rate} precision={0.1} readOnly />
           </Grid>
           <Grid item >
-            <Chip label={product.category} color="success" />
+            <IconButton color="primary" aria-label="add to shopping cart">
+              <AddShoppingCartOutlined />
+            </IconButton>
           </Grid>
         </Grid>
       </CardActions>
