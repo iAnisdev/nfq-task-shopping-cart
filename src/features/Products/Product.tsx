@@ -8,26 +8,40 @@ import Typography from '@mui/material/Typography';
 import { ProductInterface } from '../../Types/product';
 import { Grid, IconButton, Rating } from '@mui/material';
 import { AddShoppingCartOutlined } from '@mui/icons-material';
+import { DrawerActions } from '../Drawer/DrawerSlice';
+import { ProductAction } from './ProductSlice';
+import { useAppDispatch } from '../../app/hooks';
 
 interface propsInterface {
   product: ProductInterface
 }
 
 const ProductCard: React.FC<propsInterface> = function ({ product }: propsInterface): React.ReactElement {
+  const disptach = useAppDispatch()
+  function addToCart(){
+    disptach(ProductAction.setTargetItem(product))
+    disptach(DrawerActions.show())
+  }
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card>
       <CardHeader
-        title={product.title}
+        title={product.title.slice(0, 20) + '...'}
         subheader={`$${product.price}`}
       />
       <CardMedia
         component="img"
         image={product.image}
         alt={`${product.title}_img`}
+        style={{
+          width:' 100%',
+          height: '350px',
+          backgroundRepeat:' no-repeat',
+          objectFit: 'contain'
+        }}
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {product.description}
+          {product.description.slice(0, 60) + '...'}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -39,7 +53,7 @@ const ProductCard: React.FC<propsInterface> = function ({ product }: propsInterf
             <Rating name="product-rating" defaultValue={product.rating.rate} precision={0.1} readOnly />
           </Grid>
           <Grid item >
-            <IconButton color="primary" aria-label="add to shopping cart">
+            <IconButton color="primary" aria-label="add to shopping cart" onClick={addToCart}>
               <AddShoppingCartOutlined />
             </IconButton>
           </Grid>

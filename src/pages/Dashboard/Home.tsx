@@ -5,11 +5,13 @@ import Search from '../../features/Search/Search';
 
 function Home() {
   return (
-    <Container maxWidth="xl" style={{ paddingTop: '5vh' }}>
-      <Search />
-      <br />
-      <Products />
-    </Container>
+    <>
+      <Container maxWidth="xl" style={{ paddingTop: '5vh' }}>
+        <Search />
+        <br />
+        <Products />
+      </Container>
+    </>
   )
 }
 

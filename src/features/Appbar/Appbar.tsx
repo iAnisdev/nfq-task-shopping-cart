@@ -3,6 +3,7 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
+import LocalMallIcon from '@mui/icons-material/LocalMall';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import { MenuOutlined, LogoutOutlined, LightMode, DarkMode } from '@mui/icons-material';
@@ -11,11 +12,12 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthActions } from '../Auth/AuthSlice';
 import { AppbarActions } from './AppbarSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../app/store';
+import { useDispatch } from 'react-redux';
+import { Badge } from '@mui/material';
+import { useAppSelector } from '../../app/hooks';
 
 const pages = [{
   label: 'Home',
@@ -23,9 +25,14 @@ const pages = [{
 }];
 
 const MainAppBar = () => {
-  const currentTheme = useSelector((state: RootState) => state.app.theme)
-  const dispatch = useDispatch()
+  const currentTheme = useAppSelector((state) => state.app.theme)
+  const cart = useAppSelector((state) => state.cart.cart)
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const cartSize = cart.reduce((a , b) => {
+    return a + b.quanitity
+  } , 0)
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -41,6 +48,11 @@ const MainAppBar = () => {
 
   const logout = () => {
     dispatch(AuthActions.logout())
+  }
+
+
+  const viewCart = () => {
+    navigate('/cart')
   }
 
   return (
@@ -136,10 +148,16 @@ const MainAppBar = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
+            {cartSize > 0 ?
+             <IconButton size="large" color="inherit" onClick={viewCart}>
+               <Badge badgeContent={cartSize} color="error">
+                <LocalMallIcon />
+            </Badge>
+            </IconButton>: <></>}
             <IconButton size="large" color="inherit" onClick={SetTheme} >
               {currentTheme === 'dark' ? <LightMode /> : <DarkMode />}
             </IconButton>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+            <IconButton size="large" color="inherit">
               <Tooltip title="logout">
                 <LogoutOutlined onClick={logout} />
               </Tooltip>

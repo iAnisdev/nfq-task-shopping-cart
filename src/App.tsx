@@ -9,6 +9,7 @@ import Main from "./pages/Dashboard/Main";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "./app/store";
+import Checkout from "./pages/Dashboard/Checkout";
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="" element={<Main />}>
             <Route path="" index element={<Home />} />
             <Route path="cart" element={<Cart />} />
+            <Route path="checkout" element={<Checkout />} />
           </Route>
         </Route>
         <Route path="/login" element={<PrivateRoutesProtector requiredAuth={false} />}>
