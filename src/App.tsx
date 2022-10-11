@@ -10,6 +10,7 @@ import { createTheme, ThemeProvider } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "./app/store";
 import Checkout from "./pages/Dashboard/Checkout";
+import AuthPage from "./pages/Auth/Auth";
 
 function App() {
 
@@ -20,7 +21,7 @@ function App() {
       mode: currentTheme
     }
   })
-  
+
   return (
     <ThemeProvider theme={theme}>
       <Routes>
@@ -31,15 +32,15 @@ function App() {
             <Route path="checkout" element={<Checkout />} />
           </Route>
         </Route>
-        <Route path="/login" element={<PrivateRoutesProtector requiredAuth={false} />}>
-          <Route path="" element={<Login />} />
+
+        <Route path="/" element={<PrivateRoutesProtector requiredAuth={false} />}>
+          <Route path="" element={<AuthPage />}>
+            <Route path="login" index element={<Login />} />
+            <Route path="signup" element={<Signup />} />
+            <Route path="forgot" element={<Forgot />} />
+          </Route>
         </Route>
-        <Route path="/signup" element={<PrivateRoutesProtector requiredAuth={false} />}>
-          <Route path="" element={<Signup />} />
-        </Route>
-        <Route path="/forgot" element={<PrivateRoutesProtector requiredAuth={false} />}>
-          <Route path="" element={<Forgot />} />
-        </Route>
+
       </Routes>
     </ThemeProvider>
   );

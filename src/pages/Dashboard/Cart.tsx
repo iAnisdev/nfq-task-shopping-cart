@@ -22,7 +22,7 @@ function Cart() {
       </Typography>
       <List disablePadding>
         {cart.map((item) => (
-          <CartItem product={item} />
+          <CartItem product={item} key={item.id}/>
         ))}
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Shipping" />

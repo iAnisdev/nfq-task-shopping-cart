@@ -3,18 +3,16 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link as RouterLink } from 'react-router-dom';
-
-const theme = createTheme();
+import { useAppSelector } from '../../app/hooks';
 
 export default function Forgot() {
+    const theme = useAppSelector(state => state.app.theme)
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -24,7 +22,7 @@ export default function Forgot() {
     };
 
     return (
-        <ThemeProvider theme={theme}>
+        <>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
@@ -64,17 +62,16 @@ export default function Forgot() {
                             <Grid item xs>
                             </Grid>
                             <Grid item>
-
                                 <RouterLink to='/signup'>
-                                    <Link variant="body2">
+                                    <Typography variant="body2"  color={theme === 'light'  ? 'blue' : 'white'}>
                                         {"Don't have an account? Sign Up"}
-                                    </Link>
+                                    </Typography>
                                 </RouterLink>
                             </Grid>
                         </Grid>
                     </Box>
                 </Box>
             </Container>
-        </ThemeProvider>
+        </>
     );
 }
