@@ -20,10 +20,13 @@ export default function Login() {
   const [password, setPassword] = React.useState(() => {
     return 'm38rmF$'
   })
+
+
   const disptach = useAppDispatch()
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    disptach(LoginRequest({ username, password }))
+    await disptach(LoginRequest({ username, password }))
   };
 
   return (
@@ -44,7 +47,7 @@ export default function Login() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <TextField
               margin="normal"
               required
@@ -77,23 +80,23 @@ export default function Login() {
             >
               Sign In
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <RouterLink to="/forgot">
-                  <Typography variant="body2" color={theme === 'light' ? 'blue' : 'white'}>
-                    Forgot password?
-                  </Typography>
-                </RouterLink>
-              </Grid>
-              <Grid item>
-                <RouterLink to='/signup'>
-                  <Typography variant="body2" color={theme === 'light' ? 'blue' : 'white'}>
-                    {"Don't have an account? Sign Up"}
-                  </Typography>
-                </RouterLink>
-              </Grid>
-            </Grid>
           </Box>
+          <Grid container>
+            <Grid item xs>
+              <RouterLink to="/forgot">
+                <Typography variant="body2" color={theme === 'light' ? 'blue' : 'white'}>
+                  Forgot password?
+                </Typography>
+              </RouterLink>
+            </Grid>
+            <Grid item>
+              <RouterLink to='/signup'>
+                <Typography variant="body2" color={theme === 'light' ? 'blue' : 'white'}>
+                  {"Don't have an account? Sign Up"}
+                </Typography>
+              </RouterLink>
+            </Grid>
+          </Grid>
         </Box>
       </Container>
     </>

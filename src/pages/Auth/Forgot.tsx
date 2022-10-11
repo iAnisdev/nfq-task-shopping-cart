@@ -9,20 +9,18 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Link as RouterLink } from 'react-router-dom';
-import { useAppSelector } from '../../app/hooks';
-
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { ResetRequest } from '../../features/Auth/AuthSlice';
 export default function Forgot() {
     const theme = useAppSelector(state => state.app.theme)
-
-  const [email, setEmail] = React.useState(() => {
-    return ''
-  })
+    const disptach = useAppDispatch()
+    const [email, setEmail] = React.useState(() => {
+        return ''
+    })
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log({
-            email
-        });
+        disptach(ResetRequest({ email }))
     };
 
     return (
@@ -43,7 +41,7 @@ export default function Forgot() {
                     <Typography component="h1" variant="h5">
                         Reset Password
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
                             required
@@ -52,6 +50,7 @@ export default function Forgot() {
                             label="Email Address"
                             name="email"
                             autoComplete="email"
+                            type="email"
                             autoFocus
                             value={email}
                             onChange={e => setEmail(e.target.value)}
@@ -69,7 +68,7 @@ export default function Forgot() {
                             </Grid>
                             <Grid item>
                                 <RouterLink to='/signup'>
-                                    <Typography variant="body2"  color={theme === 'light'  ? 'blue' : 'white'}>
+                                    <Typography variant="body2" color={theme === 'light' ? 'blue' : 'white'}>
                                         {"Don't have an account? Sign Up"}
                                     </Typography>
                                 </RouterLink>

@@ -9,11 +9,12 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Link as RouterLink } from 'react-router-dom';
-import { useAppSelector } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { SignupRequest } from '../../features/Auth/AuthSlice';
 
 export default function SignUp() {
   const theme = useAppSelector(state => state.app.theme)
-
+  const disptach = useAppDispatch()
   const [user, setUser] = React.useState(() => {
     return {
       email: '',
@@ -36,6 +37,15 @@ export default function SignUp() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    disptach(SignupRequest({
+      email: user.email,
+      username: user.username,
+      password: user.password,
+      name: {
+        firstname: user.firstname,
+        lastname: user.lastname
+      }
+    }))
   }
 
   return (
@@ -56,7 +66,7 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField

@@ -27,6 +27,33 @@ const loaderSlice = createSlice({
         },
         'product/load/rejected': (state) => {
             state.open = false
+        },
+        'auth/login/pending': (state) => {
+            state.open = true
+        },
+        'auth/login/fulfilled': (state) => {
+            state.open = false
+        },
+        'auth/login/rejected': (state) => {
+            state.open = false
+        },
+        'auth/reset/pending': (state) => {
+            state.open = true
+        },
+        'auth/reset/fulfilled': (state) => {
+            state.open = false
+        },
+        'auth/reset/rejected': (state) => {
+            state.open = false
+        },
+        'auth/signup/pending': (state) => {
+            state.open = true
+        },
+        'auth/signup/fulfilled': (state) => {
+            state.open = false
+        },
+        'auth/signup/rejected': (state) => {
+            state.open = false
         }
     }
 })
