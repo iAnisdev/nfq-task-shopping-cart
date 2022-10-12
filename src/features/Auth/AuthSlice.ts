@@ -67,6 +67,12 @@ const AuthSlice = createSlice({
         logout: (state) => {
             state.isLoggedIn = false
             state.access_token = ''
+        },
+        setUser: (state , action) => {
+            state.currentUser = action.payload
+        },
+        resetUser: (state) => {
+            state.currentUser = initialUser
         }
     },
     extraReducers: {

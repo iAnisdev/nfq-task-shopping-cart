@@ -21,8 +21,13 @@ const PaymentForm: React.FC<StepPropsInterface> = function (props: StepPropsInte
     }))
   }
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement> ): void => {
+    e.preventDefault()
+    props.handleNext()
+  }
+
   return (
-    <Box component="form" sx={{ mt: 3 }}>
+    <Box component="form" sx={{ mt: 3 }} onSubmit={e => handleSubmit(e)}>
       <Typography variant="h6" gutterBottom>
         Payment method
       </Typography>
@@ -85,13 +90,13 @@ const PaymentForm: React.FC<StepPropsInterface> = function (props: StepPropsInte
         </Grid>
       </Grid>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <Button type='submit' onClick={props.handleBack} sx={{ mt: 3, ml: 1 }}>
+        <Button onClick={props.handleBack} sx={{ mt: 3, ml: 1 }}>
           Back
         </Button>
 
         <Button
           variant="contained"
-          onClick={props.handleNext}
+          type='submit'
           sx={{ mt: 3, ml: 1 }}
         >
           Next
