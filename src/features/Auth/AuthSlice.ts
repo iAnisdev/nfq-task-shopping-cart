@@ -33,7 +33,6 @@ export const LoginRequest = createAsyncThunk('auth/login', async (data: { userna
     //switching from login to user api as login api is not working
     // let result = await API.post('/auth/login', data)
     let result = await API.get('/users/1') 
-    console.log(result)
     return {
         access_token: 'eyJhbGciOiJIUzI1NiIsInR',
         user: {
