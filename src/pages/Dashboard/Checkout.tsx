@@ -1,29 +1,28 @@
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import AddressForm from './../../Components/AddressForm';
-import PaymentForm from './../../Components/PaymentForm';
+import PaymentForm from '../../features/Payment/PaymentForm';
 import Review from './../../Components/Review';
 import { CartActions } from '../../features/Cart/CartSlice';
 import { useAppDispatch } from '../../app/hooks';
-
+import { StepPropsInterface } from '../../Types/stepper'
+import { useNavigate } from 'react-router-dom';
 const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
-function getStepContent(step: number) {
+function getStepContent(step: number, props: StepPropsInterface) {
   switch (step) {
     case 0:
-      return <AddressForm />;
+      return <AddressForm {...props} />;
     case 1:
-      return <PaymentForm />;
+      return <PaymentForm  {...props} />;
     case 2:
-      return <Review />;
+      return <Review  {...props} />;
     default:
       throw new Error('Unknown step');
   }
@@ -31,6 +30,7 @@ function getStepContent(step: number) {
 
 export default function Checkout() {
   const disptach = useAppDispatch()
+  const navigate = useNavigate()
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -41,6 +41,9 @@ export default function Checkout() {
   };
 
   const handleBack = () => {
+    if(activeStep === 0){
+      navigate('/cart')
+    }
     setActiveStep(activeStep - 1);
   };
 
@@ -73,23 +76,7 @@ export default function Checkout() {
               </React.Fragment>
             ) : (
               <React.Fragment>
-                <Box component="form" sx={{ mt: 3 }}>
-                  {getStepContent(activeStep)}
-                  <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                    {activeStep !== 0 && (
-                      <Button type='submit' onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                        Back
-                      </Button>
-                    )}
-                    <Button
-                      variant="contained"
-                      onClick={handleNext}
-                      sx={{ mt: 3, ml: 1 }}
-                    >
-                      {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                    </Button>
-                  </Box>
-                </Box>
+                {getStepContent(activeStep, { handleNext, handleBack })}
               </React.Fragment>
             )}
           </React.Fragment>

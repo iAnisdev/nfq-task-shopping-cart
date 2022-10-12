@@ -5,18 +5,22 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
 import { useAppSelector } from '../app/hooks';
+import { StepPropsInterface } from './../Types/stepper';
+import { Box, Button } from '@mui/material';
 
-export default function Review() {
+const Review: React.FC<StepPropsInterface> = function (props: StepPropsInterface): React.ReactElement {
+
     const cart = useAppSelector(state => state.cart.cart)
     const user = useAppSelector(state => state.auth.currentUser)
+    const card = useAppSelector(state => state.payment.card)
     const totalPrice = cart.reduce((a, b) => {
         return a + (b.price * b.quanitity)
       }, 0)
 
     const payments = [
       { name: 'Card holder', detail: `${user.name.firstname} ${user.name.lastname}` },
-      { name: 'Card number', detail: 'xxxx-xxxx-xxxx-1234' },
-      { name: 'Expiry date', detail: '04/2024' },
+      { name: 'Card number', detail: card.number },
+      { name: 'Expiry date', detail: card.expiry },
     ];
     
   return (
@@ -66,6 +70,22 @@ export default function Review() {
           </Grid>
         </Grid>
       </Grid>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Button  onClick={props.handleBack} sx={{ mt: 3, ml: 1 }}>
+          Back
+        </Button>
+
+        <Button
+          variant="contained"
+          onClick={props.handleNext}
+          sx={{ mt: 3, ml: 1 }}
+        >
+          Place Order
+        </Button>
+      </Box>
     </React.Fragment>
   );
 }
+
+
+export default Review
