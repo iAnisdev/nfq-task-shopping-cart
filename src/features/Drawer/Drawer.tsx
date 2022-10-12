@@ -49,7 +49,7 @@ export default function ItemDrawer() {
                 onClose={(e) => closeDrawer}
             >
                 <Box
-                    sx={{ width: '50vw' }}
+                    sx={{ width: '50vw', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
                     role="presentation"
                 >
                     <CardHeader
@@ -62,7 +62,7 @@ export default function ItemDrawer() {
                         alt={`${product.title}_img`}
                         style={{
                             width: '100%',
-                            height: '400px',
+                            height: '300px',
                             objectFit: 'contain'
                         }}
                     />
@@ -99,15 +99,20 @@ export default function ItemDrawer() {
                         <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%' }}>
                             <Grid container
                                 direction="row"
-                                justifyContent="flex-end"
+                                justifyContent="space-between"
                                 alignItems="center">
+
                                 <Grid item>
+                                    <Button variant="contained" color="error" onClick={closeDrawer}>
+                                        Close
+                                    </Button>
+
+                                </Grid>
+                                <Grid>
                                     {
                                         product.quanitity > 0 ? <Button variant="contained" onClick={addToCart}>
                                             Add to Cart (${Number(product.price * product.quanitity).toFixed(2)})
-                                        </Button> : <Button variant="contained" color="error" onClick={closeDrawer}>
-                                            Close
-                                        </Button>
+                                        </Button> : <></>
                                     }
                                 </Grid>
                             </Grid>

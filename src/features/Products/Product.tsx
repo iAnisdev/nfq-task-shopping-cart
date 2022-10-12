@@ -34,7 +34,7 @@ const ProductCard: React.FC<propsInterface> = function ({ product }: propsInterf
         alt={`${product.title}_img`}
         style={{
           width: ' 100%',
-          height: '350px',
+          height: '250px',
           backgroundRepeat: ' no-repeat',
           objectFit: 'contain'
         }}

@@ -33,7 +33,13 @@ export const LoginRequest = createAsyncThunk('auth/login', async (data: { userna
     //switching from login to user api as login api is not working
     // let result = await API.post('/auth/login', data)
     let result = await API.get('/users/1') 
-    return result.data
+    console.log(result)
+    return {
+        access_token: 'eyJhbGciOiJIUzI1NiIsInR',
+        user: {
+            ...result.data
+        }
+    }
 })
 
 export const SignupRequest = createAsyncThunk('auth/signup', async (data: UserInterface) => {
@@ -49,12 +55,7 @@ export const SignupRequest = createAsyncThunk('auth/signup', async (data: UserIn
 
 export const ResetRequest = createAsyncThunk('auth/reset', async (data: { email: string }) => {
     let result = await API.post('/auth/reset', data)
-    return {
-        access_token: 'eyJhbGciOiJIUzI1NiIsInR',
-        user: {
-            ...result.data
-        }
-    }
+    return result.data
 })
 
 const AuthSlice = createSlice({
