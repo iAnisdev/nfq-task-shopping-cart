@@ -1,4 +1,4 @@
-*{
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -7,4 +7,14 @@
 a:-webkit-any-link {
   cursor: pointer;
   text-decoration: none;
+}
+
+.bg-black {
+  color: #fff;
+  background-color: #121212;
+}
+
+.bg-light {
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #fff;
 }

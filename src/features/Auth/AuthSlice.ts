@@ -30,7 +30,9 @@ const initialState: InitialState = {
 }
 
 export const LoginRequest = createAsyncThunk('auth/login', async (data: { username: string, password: string }) => {
-    let result = await API.post('/auth/login', data)
+    //switching from login to user api as login api is not working
+    // let result = await API.post('/auth/login', data)
+    let result = await API.get('/users/1') 
     return result.data
 })
 
@@ -47,7 +49,12 @@ export const SignupRequest = createAsyncThunk('auth/signup', async (data: UserIn
 
 export const ResetRequest = createAsyncThunk('auth/reset', async (data: { email: string }) => {
     let result = await API.post('/auth/reset', data)
-    return result.data
+    return {
+        access_token: 'eyJhbGciOiJIUzI1NiIsInR',
+        user: {
+            ...result.data
+        }
+    }
 })
 
 const AuthSlice = createSlice({
@@ -82,7 +89,6 @@ const AuthSlice = createSlice({
             state = initialState
         },
         [SignupRequest.fulfilled.toString()]: (state, action) => {
-            console.log(action.payload)
             state.isLoggedIn = true
             state.currentUser = action.payload.user
             state.access_token = action.payload.access_token
