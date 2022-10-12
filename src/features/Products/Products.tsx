@@ -10,6 +10,7 @@ import { Alert } from '@mui/material';
 function Products() {
   const products = useAppSelector((state) => state.product.products)
   const search = useAppSelector((state) => state.search.search)
+  const isOpen = useAppSelector((state) => state.loader.open)
   const disptach = useAppDispatch()
 
   useEffect(() => {
@@ -36,7 +37,7 @@ function Products() {
   if (search.trim() !== '' && filteredProducts.length === 0) {
     errorBlock = <Alert severity="error">No Products macthing your search query</Alert>
   }
-  if (products.length === 0) {
+  if (!isOpen && products.length === 0) {
     errorBlock = <Alert severity="error">No Products available</Alert>
   }
   return (
