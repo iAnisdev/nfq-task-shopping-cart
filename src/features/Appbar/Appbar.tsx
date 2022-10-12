@@ -173,7 +173,7 @@ const MainAppBar = () => {
               alignItems="center"
             >
 
-              <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+              <AdbIcon sx={{ display: {  md: 'flex' }, mr: 1 }} />
 
               <Box sx={{ flexGrow: 0}}>
                 <IconButton size="large" color="inherit" onClick={SetTheme} >

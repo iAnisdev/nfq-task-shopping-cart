@@ -46,10 +46,10 @@ export default function ItemDrawer() {
             <Drawer
                 anchor="right"
                 open={isOpen}
-                onClose={(e) => closeDrawer}
+                onClose={() => closeDrawer}
             >
                 <Box
-                    sx={{ width: '50vw', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
+                    sx={{ maxWidth: '500px', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
                     role="presentation"
                 >
                     <CardHeader
