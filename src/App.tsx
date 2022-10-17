@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/Signup";
 import Forgot from "./pages/Auth/Forgot";
@@ -10,11 +10,24 @@ import { createTheme, ThemeProvider } from "@mui/material";
 import { RootState } from "./app/store";
 import Checkout from "./pages/Dashboard/Checkout";
 import AuthPage from "./pages/Auth/Auth";
-import { useAppSelector } from "./app/hooks";
-
+import { useAppSelector , useAppDispatch } from "./app/hooks";
+import { DrawerActions } from "./features/Drawer/DrawerSlice";
+import { ProductAction } from "./features/Products/ProductSlice";
+import { useMemo } from "react";
 function App() {
+  const disptach = useAppDispatch()
+
+  const {pathname} = useLocation()
 
   const currentTheme = useAppSelector((state: RootState) => state.app.theme)
+  const isOpen = useAppSelector(state => state.drawer.isOpen)
+  
+  useMemo(() => {
+    if(isOpen){
+      disptach(disptach(DrawerActions.hide()))
+      disptach(ProductAction.resetTargetItem())
+    }
+  }, [pathname])
 
   const theme = createTheme({
     palette: {
