@@ -15,37 +15,19 @@ import { SignupRequest } from '../../features/Auth/AuthSlice';
 export default function SignUp() {
   const theme = useAppSelector(state => state.app.theme)
   const disptach = useAppDispatch()
-  const [user, setUser] = React.useState(() => {
-    return {
-      email: '',
-      username: '',
-      password: '',
-      cpassword: '',
-      firstname: '',
-      lastname: ''
-    }
-  })
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value
-    const name = event.target.name;
-    setUser({
-      ...user,
-      [name]: value
-    })
-  }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    console.log("Event ", event)
     event.preventDefault();
-    disptach(SignupRequest({
-      email: user.email,
-      username: user.username,
-      password: user.password,
-      name: {
-        firstname: user.firstname,
-        lastname: user.lastname
-      }
-    }))
+    // disptach(SignupRequest({
+    //   email: user.email,
+    //   username: user.username,
+    //   password: user.password,
+    //   name: {
+    //     firstname: user.firstname,
+    //     lastname: user.lastname
+    //   }
+    // }))
   }
 
   return (
@@ -76,8 +58,6 @@ export default function SignUp() {
                   fullWidth
                   id="firstName"
                   label="First Name"
-                  value={user.firstname}
-                  onChange={handleChange}
                   autoFocus
                 />
               </Grid>
@@ -89,8 +69,6 @@ export default function SignUp() {
                   label="Last Name"
                   name="lastname"
                   autoComplete="family-name"
-                  value={user.lastname}
-                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -101,8 +79,6 @@ export default function SignUp() {
                   label="Username"
                   name="username"
                   autoComplete="username"
-                  value={user.username}
-                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -114,8 +90,6 @@ export default function SignUp() {
                   name="email"
                   type="email"
                   autoComplete="email"
-                  value={user.email}
-                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -127,8 +101,6 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
-                  value={user.password}
-                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -140,8 +112,6 @@ export default function SignUp() {
                   type="password"
                   id="cpassword"
                   autoComplete="repeat-password"
-                  value={user.cpassword}
-                  onChange={handleChange}
                 />
               </Grid>
             </Grid>

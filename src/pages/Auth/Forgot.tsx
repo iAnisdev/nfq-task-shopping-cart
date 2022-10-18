@@ -11,16 +11,25 @@ import Container from '@mui/material/Container';
 import { Link as RouterLink } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { ResetRequest } from '../../features/Auth/AuthSlice';
+interface ForgotForm {
+   email: string
+}
 export default function Forgot() {
     const theme = useAppSelector(state => state.app.theme)
     const disptach = useAppDispatch()
-    const [email, setEmail] = React.useState(() => {
-        return ''
-    })
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        disptach(ResetRequest({ email }))
+        let formData = new FormData(event.currentTarget)
+        let formObj: ForgotForm = {
+            email: ''
+        }
+        for (let [key, value] of Array.from(formData.entries())) {
+            if(key === 'email'){
+                formObj[key] = value.toString()
+            }
+        }
+        disptach(ResetRequest(formObj))
     };
 
     return (
@@ -52,8 +61,6 @@ export default function Forgot() {
                             autoComplete="email"
                             type="email"
                             autoFocus
-                            value={email}
-                            onChange={e => setEmail(e.target.value)}
                         />
                         <Button
                             type="submit"
