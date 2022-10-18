@@ -54,6 +54,7 @@ export default function Login() {
               fullWidth
               id="username"
               label="Username"
+              placeholder="Username"
               name="username"
               autoComplete="username"
               value={username}
@@ -67,6 +68,7 @@ export default function Login() {
               name="password"
               label="Password"
               type="password"
+              placeholder="Password"
               id="password"
               value={password}
               autoComplete="current-password"
