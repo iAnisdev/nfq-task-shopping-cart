@@ -23,7 +23,7 @@ describe("Login Page", () => {
                 </BrowserRouter>
             </Provider>)
 
-        expect(screen.getAllByPlaceholderText('Username'))
+        expect(screen.getByPlaceholderText('Username'))
     })
 
     it("Should Render Login Page and verify Password input to be in document tree ", () => {
@@ -34,7 +34,7 @@ describe("Login Page", () => {
                 </BrowserRouter>
             </Provider>)
 
-        expect(screen.getAllByPlaceholderText('Password'))
+        expect(screen.getByPlaceholderText('Password'))
     })
 
     it("Should Render Login Page and verify Sign in button to be in document tree ", () => {
@@ -44,7 +44,6 @@ describe("Login Page", () => {
                     <Login />
                 </BrowserRouter>
             </Provider>)
-
         expect(screen.getByRole('button'))
     })
 
