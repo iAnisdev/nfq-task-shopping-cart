@@ -56,7 +56,7 @@ const MainAppBar = () => {
   }
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" role={'AppBar'}>
       <Container maxWidth="xl">
         {isLoggedIn ?
           <Toolbar disableGutters>
