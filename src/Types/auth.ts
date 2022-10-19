@@ -1,3 +1,8 @@
+export interface LoginFormValues {
+    username: string
+    password: string
+}
+
 export interface SignupFormValues {
     firstname: string
     lastname: string

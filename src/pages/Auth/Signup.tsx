@@ -12,8 +12,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { SignupRequest } from '../../features/Auth/AuthSlice';
 import { SignupFormValues } from './../../Types/auth';
-import { Alert, IconButton, Snackbar } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import { Alert, Snackbar } from '@mui/material';
 
 export default function SignUp() {
   const theme = useAppSelector(state => state.app.theme)

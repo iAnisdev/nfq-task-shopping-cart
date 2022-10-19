@@ -11,23 +11,18 @@ import Container from '@mui/material/Container';
 import { Link as RouterLink } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { LoginRequest } from '../../features/Auth/AuthSlice';
+import { useFormik } from 'formik';
 
 export default function Login() {
   const theme = useAppSelector(state => state.app.theme)
-  const [username, setUsername] = React.useState(() => {
-    return 'johnd'
-  })
-  const [password, setPassword] = React.useState(() => {
-    return 'm38rmF$'
-  })
-
-
   const disptach = useAppDispatch()
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    await disptach(LoginRequest({ username, password }))
-  };
+  const formik = useFormik({
+    initialValues: { username: "johnd", password: "m38rmF$" },
+    onSubmit: async (values) => {
+      await disptach(LoginRequest({ ...values }))
+    }
+  });
 
   return (
     <>
@@ -47,7 +42,7 @@ export default function Login() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 3 }}>
             <TextField
               margin="normal"
               required
@@ -57,9 +52,9 @@ export default function Login() {
               placeholder="Username"
               name="username"
               autoComplete="username"
-              value={username}
+              value={formik.values.username}
               autoFocus
-              onChange={e => setUsername(e.target.value)}
+              onChange={formik.handleChange}
             />
             <TextField
               margin="normal"
@@ -70,9 +65,9 @@ export default function Login() {
               type="password"
               placeholder="Password"
               id="password"
-              value={password}
+              value={formik.values.password}
               autoComplete="current-password"
-              onChange={e => setPassword(e.target.value)}
+              onChange={formik.handleChange}
             />
             <Button
               type="submit"
