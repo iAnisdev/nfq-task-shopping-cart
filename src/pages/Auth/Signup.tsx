@@ -11,23 +11,60 @@ import Container from '@mui/material/Container';
 import { Link as RouterLink } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { SignupRequest } from '../../features/Auth/AuthSlice';
+import { SignupFormValues } from './../../Types/auth';
+import { Alert, IconButton, Snackbar } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function SignUp() {
   const theme = useAppSelector(state => state.app.theme)
+  const [snackBarContent, setSnackBarContent] = React.useState(() => {
+    return {
+      open: false,
+      message: ''
+    }
+  })
+
+  const handleSnackBarClose = (): void => {
+    setSnackBarContent({
+      message: '',
+      open: false
+    })
+  }
   const disptach = useAppDispatch()
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    console.log("Event ", event)
     event.preventDefault();
-    // disptach(SignupRequest({
-    //   email: user.email,
-    //   username: user.username,
-    //   password: user.password,
-    //   name: {
-    //     firstname: user.firstname,
-    //     lastname: user.lastname
-    //   }
-    // }))
+    let formData = new FormData(event.currentTarget)
+    let user: SignupFormValues = {
+      email: '',
+      username: '',
+      password: '',
+      firstname: '',
+      lastname: '',
+      cpassword: ''
+    }
+
+    for (let [key, value] of Array.from(formData.entries())) {
+      if (user.hasOwnProperty(key)) {
+        user[key] = value.toString()
+      }
+    }
+    if (user.cpassword.trim() !== user.password.trim()) {
+      setSnackBarContent({
+        message: 'Both password didnt match',
+        open: true
+      })
+    } else {
+      disptach(SignupRequest({
+        email: user.email,
+        username: user.username,
+        password: user.password,
+        name: {
+          firstname: user.firstname,
+          lastname: user.lastname
+        }
+      }))
+    }
   }
 
   return (
@@ -135,6 +172,20 @@ export default function SignUp() {
           </Box>
         </Box>
       </Container>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center'
+        }}
+        autoHideDuration={5000}
+        open={snackBarContent.open}
+        onClose={handleSnackBarClose}
+        message={snackBarContent.message}
+      >
+        <Alert onClose={handleSnackBarClose} severity="error" sx={{ width: '100%' }}>
+          {snackBarContent.message}
+        </Alert>
+      </Snackbar>
     </>
   );
 }
