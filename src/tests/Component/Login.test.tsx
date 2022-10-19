@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter, } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { store } from './../../app/store';
-import Login from './../../pages/Auth/Login'
+import { store } from '../../app/store';
+import Login from '../../pages/Auth/Login'
 
 describe("Login Page", () => {
     it("Verify title to be in document tree", () => {
