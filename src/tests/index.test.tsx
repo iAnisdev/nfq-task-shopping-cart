@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from "@testing-library/react";
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from '../app/store';
 import LoaderBackdrop from '../features/Loader/Loader';
@@ -13,10 +13,10 @@ describe("Testing entery point of the app ", () => {
             <React.StrictMode>
                 <Provider store={store}>
                     <PersistGate loading={null} persistor={persistor}>
-                        <BrowserRouter>
+                        <MemoryRouter>
                             <App />
                             <LoaderBackdrop />
-                        </BrowserRouter>
+                        </MemoryRouter>
                     </PersistGate>
                 </Provider>
             </React.StrictMode>
