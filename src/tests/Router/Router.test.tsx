@@ -18,8 +18,6 @@ describe("Testing Router ", () => {
     });
 
     it("Should test useNavigaet router hook", () => {
-        // mock push function
-        // history.push = jest.fn();
         render(
             <React.StrictMode>
                 <Provider store={store}>
