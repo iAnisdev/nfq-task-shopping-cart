@@ -7,6 +7,7 @@ import Dialog from '@mui/material/Dialog';
 import TranslateIcon from '@mui/icons-material/Translate';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { AppbarActions } from './AppbarSlice';
+import { useTranslation } from 'react-i18next';
 const Languages = [{
     name: 'English',
     code: 'en'
@@ -29,20 +30,31 @@ export interface DialogProps {
 function DialogBox(props: DialogProps) {
     const { onClose, selectedValue, open } = props;
     const appLanguage = useAppSelector(state => {
-       return state.app.language
+        return state.app.language
     })
-    console.log(appLanguage)
+    const { i18n } = useTranslation()
     const dispatch = useAppDispatch()
 
     const handleClose = () => {
         onClose(selectedValue);
     };
 
-    const handleListItemClick = (value: Language) => {
-        console.log({value})
+    const handleListItemClick = async (value: Language) => {
         dispatch(AppbarActions.setLanguage(value))
         onClose(value);
     };
+
+    React.useEffect(() => {
+        console.log({
+            appLanguage: appLanguage.code,
+            i18nLanguage: i18n.language
+        })
+        console.log(i18n)
+        async function updateLanguage() {
+            await i18n.changeLanguage(appLanguage.code)
+        }
+        updateLanguage()
+    } , [appLanguage])
 
     return (
         <Dialog onClose={handleClose} open={open}>

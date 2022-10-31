@@ -19,11 +19,7 @@ import { useDispatch } from 'react-redux';
 import { Badge, Grid } from '@mui/material';
 import { useAppSelector } from '../../app/hooks';
 import LanguageSelector from './LanguageSelector';
-
-const pages = [{
-  label: 'Shop Now',
-  to: '/'
-}];
+import { Trans, useTranslation } from 'react-i18next';
 
 const MainAppBar = () => {
   const currentTheme = useAppSelector((state) => state.app.theme)
@@ -32,6 +28,13 @@ const MainAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const { t } = useTranslation()
+
+  const pages = [{
+    label: t('shopLabel'),
+    to: '/'
+  }];
+
   const cartSize = cart.reduce((a, b) => {
     return a + b.quanitity
   }, 0)
@@ -76,7 +79,7 @@ const MainAppBar = () => {
                   textDecoration: 'none',
                 }}
               >
-                LOGO
+                {t('language')}
               </Typography>
 
             </Link>
@@ -133,7 +136,7 @@ const MainAppBar = () => {
                 textDecoration: 'none',
               }}
             >
-              LOGO
+              <Trans>language</Trans>
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
@@ -158,11 +161,13 @@ const MainAppBar = () => {
                 {currentTheme === 'dark' ? <LightMode /> : <DarkMode />}
               </IconButton>
               <IconButton size="large" color="inherit">
+                <LanguageSelector />
+              </IconButton>
+              <IconButton size="large" color="inherit">
                 <Tooltip title="logout">
                   <LogoutOutlined onClick={logout} />
                 </Tooltip>
               </IconButton>
-
             </Box>
           </Toolbar>
           :
@@ -175,6 +180,7 @@ const MainAppBar = () => {
             >
 
               <AdbIcon sx={{ display: { md: 'flex' }, mr: 1 }} />
+              <Trans>language</Trans>
               <Box sx={{ flexGrow: 0 }}>
                 <IconButton size="large" color="inherit" onClick={SetTheme} >
                   {currentTheme === 'dark' ? <LightMode /> : <DarkMode />}
