@@ -1,11 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface InitialState {
-    theme: 'light' | 'dark'
+    theme: 'light' | 'dark',
+    language: {
+        name: string,
+        code: string
+    }
 }
 
 const initialState: InitialState = {
-    theme: 'light'
+    theme: 'light',
+    language: {
+        name: 'English',
+        code: 'en'
+    }
 }
 
 const AppBarSlice = createSlice({
@@ -18,6 +26,9 @@ const AppBarSlice = createSlice({
             } else {
                 state.theme = 'light'
             }
+        },
+        setLanguage: (state , action) => {
+            state.language = action.payload
         }
     }
 })

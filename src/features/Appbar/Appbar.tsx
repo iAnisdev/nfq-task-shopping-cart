@@ -18,6 +18,7 @@ import { AppbarActions } from './AppbarSlice';
 import { useDispatch } from 'react-redux';
 import { Badge, Grid } from '@mui/material';
 import { useAppSelector } from '../../app/hooks';
+import LanguageSelector from './LanguageSelector';
 
 const pages = [{
   label: 'Shop Now',
@@ -173,14 +174,15 @@ const MainAppBar = () => {
               alignItems="center"
             >
 
-              <AdbIcon sx={{ display: {  md: 'flex' }, mr: 1 }} />
-
-              <Box sx={{ flexGrow: 0}}>
+              <AdbIcon sx={{ display: { md: 'flex' }, mr: 1 }} />
+              <Box sx={{ flexGrow: 0 }}>
                 <IconButton size="large" color="inherit" onClick={SetTheme} >
                   {currentTheme === 'dark' ? <LightMode /> : <DarkMode />}
                 </IconButton>
+                <IconButton size="large" color="inherit">
+                  <LanguageSelector />
+                </IconButton>
               </Box>
-
             </Grid>
           </Toolbar>}
       </Container>
